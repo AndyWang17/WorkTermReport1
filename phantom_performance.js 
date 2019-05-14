@@ -1,0 +1,22 @@
+const phantom = require('phantom');
+ 
+async function loadPhantom(url) {
+    console.time(url);
+    const instance = await phantom.create();
+    const page = await instance.createPage();
+    /*
+    await page.on('onResourceRequested', function(requestData) {
+        console.info('Requesting', requestData.url);
+    });
+    */
+
+    const status = await page.open('http://'+url);
+    await instance.exit();
+    console.timeEnd(url);
+};
+
+loadPhantom('www.google.com/');
+
+
+
+
